@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import './App.css'
+import { Route, Routes } from 'react-router-dom';
+import CharactersList from './components/CharactersList';
+import CharacterDetails from './components/CharacterDetails';
 
 function App() {
   
@@ -21,20 +24,15 @@ function App() {
 
   return (
     <>
+
       <h1>React Characters App</h1>
-      
-      { characters && <h2>Number of characters: {characters.length}</h2> }
-  
-      {characters === null
-        ? <p>loading...</p>
-        : characters.length && characters.map((characterDetails, index) => {
-          return (
-            <section key={index} className='card'>
-              <h3>{characterDetails.name}</h3>
-              <p>Occupation: {characterDetails.occupation}</p>
-            </section>
-          )
-        })}
+
+      <Routes>
+        <Route path='/' element={<CharactersList charactersArr={characters} />} />
+        <Route path='/characters/:characterId' element={<CharacterDetails />} />
+      </Routes>
+
+
     </>
     
   )
